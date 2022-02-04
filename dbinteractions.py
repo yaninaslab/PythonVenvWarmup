@@ -49,11 +49,11 @@ def attempt_login(username, password):
 
 
 def list_your_dogs(user_id):
-    dogs = None
+    dogs = []
     conn, cursor = connect_db()
     try:
         cursor.execute(
-            "select id, name, description from dog where owner_id =?", [user_id])
+            "select id, name, description from dog where owner_id=?", [user_id])
         print("Here are your dogs:")
         dogs = cursor.fetchall()
     except db.OperationalError:
@@ -63,7 +63,4 @@ def list_your_dogs(user_id):
     except:
         print("Something went wrong!")
     disconnect_db(conn, cursor)
-    for dog in dogs:
-        print("")
-        print(f"Name: {dog[1]} Description: {dog[2]}")
-        print("")
+    return dogs
