@@ -1,4 +1,4 @@
-from os import stat_result
+
 import dbinteractions as dbi
 import getpass as gp
 from flask import Flask, request, Response
@@ -27,6 +27,20 @@ def attempt_login():
 
     else:
         return Response("Authentication error", mimetype="plain/text", status=403)
+
+
+@app.get('/animals')
+def list_all_dogs():
+    dogs = None
+    dogs_json = json.dumps(dogs, default=str)
+    return Response(dogs_json, mimetype="application/json", status=200)
+
+
+@app.post('/animals')
+def add_new_animal():
+    animals = None
+    animals_json = json.dumps(animals, default=str)
+    return Response(animals_json, mimetype="application/json", status=200)
 
 
 app.run(debug=True)

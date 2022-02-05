@@ -64,3 +64,39 @@ def list_your_dogs(user_id):
         print("Something went wrong!")
     disconnect_db(conn, cursor)
     return dogs
+
+
+def list_all_dogs():
+    dogs = []
+    conn, cursor = connect_db()
+    try:
+        cursor.execute(
+            "select id, name, description from dog")
+        print("Here are all dogs:")
+        dogs = cursor.fetchall()
+    except db.OperationalError:
+        print("Something is wrong with the DB, please try again in 5 minutes")
+    except db.ProgrammingError:
+        print("Error running DB query, please file bug report")
+    except:
+        print("Something went wrong!")
+    disconnect_db(conn, cursor)
+    return dogs
+
+
+def add_new_animal():
+    animals = []
+    conn, cursor = connect_db()
+    try:
+        cursor.execute(
+            "insert into dog(name, description, owner_id) values('snake', 'test animal', 1)")
+        print("Here are all dogs:")
+        animals = cursor.fetchall()
+    except db.OperationalError:
+        print("Something is wrong with the DB, please try again in 5 minutes")
+    except db.ProgrammingError:
+        print("Error running DB query, please file bug report")
+    except:
+        print("Something went wrong!")
+    disconnect_db(conn, cursor)
+    return animals
